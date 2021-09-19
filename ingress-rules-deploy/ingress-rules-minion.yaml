@@ -1,0 +1,28 @@
+kind: Ingress
+apiVersion: extensions/v1beta1
+metadata:
+  name: myapp-ingress-minion
+  namespace: application-environment-namespace
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.org/mergeable-ingress-type: minion
+spec:
+  rules:
+    - host: unique-wildcard-entry-for-namespace.your-dns.your-tld
+      http:
+        paths:
+          - path: /service1/
+            pathType: ImplementationSpecific
+            backend:
+              serviceName: service-one
+              servicePort: 3005
+          - path: /service2/
+            pathType: ImplementationSpecific
+            backend:
+              serviceName: service-two
+              servicePort: 3006
+          - path: /service3/
+            pathType: ImplementationSpecific
+            backend:
+              serviceName: service-three
+              servicePort: 3007
